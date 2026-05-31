@@ -1,0 +1,170 @@
+/* ═══════════════════════════════════════════════════════
+   宣室异闻录 — 朱砂古籍案牍风 Design System
+   ═══════════════════════════════════════════════════════ */
+
+:root {
+  /* ─── Core Palette ─── */
+  --paper: #d4c5a9;
+  --paper-light: #ede1c5;
+  --paper-dark: #c7b08a;
+  --paper-deep: #b09a78;
+  --ink: #1a1410;
+  --ink-soft: #4a392d;
+  --ink-faint: rgba(74, 57, 45, 0.58);
+  --vermillion: #c04040;
+  --vermillion-deep: #7b231f;
+  --vermillion-glow: rgba(192, 64, 64, 0.24);
+  --gold: #b8a06e;
+  --gold-dim: rgba(184, 160, 110, 0.4);
+  --night: #0d0a08;
+  --night-blue: #0f1a2e;
+
+  /* ─── Borders & Lines ─── */
+  --line: rgba(88, 66, 45, 0.28);
+  --line-light: rgba(88, 66, 45, 0.14);
+  --border-gold: rgba(184, 160, 110, 0.26);
+
+  /* ─── Shadows ─── */
+  --shadow-book: 0 24px 80px rgba(13, 9, 7, 0.42);
+  --shadow-page: 0 4px 24px rgba(13, 9, 7, 0.18);
+  --shadow-seal: 0 2px 8px rgba(192, 64, 64, 0.3);
+
+  /* ─── Typography ─── */
+  --font-body: "Noto Serif SC", "Songti SC", "STSong", "SimSun", serif;
+  --font-display: "Noto Serif SC", "Songti SC", serif;
+
+  /* ─── Spacing ─── */
+  --page-pad: clamp(16px, 3vw, 42px);
+  --gap-sm: 8px;
+  --gap-md: 16px;
+  --gap-lg: 24px;
+  --gap-xl: 42px;
+
+  /* ─── Transitions ─── */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+  --duration-fast: 180ms;
+  --duration-normal: 320ms;
+  --duration-slow: 600ms;
+
+  /* ─── Z-index scale ─── */
+  --z-base: 1;
+  --z-page: 2;
+  --z-overlay: 10;
+  --z-mirror: 20;
+  --z-modal: 50;
+  --z-toast: 100;
+}
+
+/* ─── Reset ─── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  margin: 0;
+  min-height: 100vh;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.78;
+  color: var(--ink);
+  background: var(--night);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+button, input, textarea {
+  font: inherit;
+  color: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+/* ─── Utility: Paper Texture Noise (SVG filter) ─── */
+.paper-grain {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0.6;
+  mix-blend-mode: multiply;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='200' height='200' filter='url(%23n)' opacity='0.08'/%3E%3C/svg%3E");
+}
+
+/* ─── Utility: Vermillion Seal Stamp ─── */
+.seal-stamp {
+  display: inline-grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  background: linear-gradient(135deg, var(--vermillion), var(--vermillion-deep));
+  color: #f6e9da;
+  font-size: 0.85rem;
+  font-weight: 600;
+  box-shadow: var(--shadow-seal);
+  transform: rotate(-3deg);
+}
+
+/* ─── Animations ─── */
+@keyframes candleFlicker {
+  0%, 100% { opacity: 0.85; }
+  25% { opacity: 0.92; }
+  50% { opacity: 0.78; }
+  75% { opacity: 0.88; }
+}
+
+@keyframes inkSpread {
+  0% { transform: scale(0); opacity: 0.8; }
+  60% { transform: scale(1.2); opacity: 0.4; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+@keyframes breathGlow {
+  0%, 100% { box-shadow: 0 0 12px rgba(255, 176, 87, 0.2); }
+  50% { box-shadow: 0 0 24px rgba(255, 176, 87, 0.5); }
+}
+
+@keyframes pageFlipIn {
+  0% { transform: perspective(1200px) rotateY(-90deg); opacity: 0; }
+  100% { transform: perspective(1200px) rotateY(0deg); opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  0% { transform: translateY(16px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes waveBar {
+  0%, 100% { height: 4px; }
+  50% { height: 20px; }
+}
+
+@keyframes sealDrop {
+  0% { transform: scale(1.8) rotate(-8deg); opacity: 0; }
+  60% { transform: scale(0.95) rotate(2deg); opacity: 1; }
+  100% { transform: scale(1) rotate(0deg); opacity: 1; }
+}
+
+@keyframes rainDrop {
+  0% { transform: translateY(-100%) rotate(15deg); opacity: 0.7; }
+  100% { transform: translateY(100vh) rotate(15deg); opacity: 0; }
+}
+
+/* ─── Reduced Motion ─── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
